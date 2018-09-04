@@ -15,9 +15,19 @@ class CSRFTokenValidatorTest extends TestCase
     /**
      * @test
      */
+    public function getToken_ReturnsNewToken() {
+        $validator = new CSRFTokenValidator();
+        $token = $validator->getToken();
+        $this->assertNotNull($token);
+        $this->assertEquals($token, $validator->getToken());
+    }
+
+    /**
+     * @test
+     */
     public function validate_GivenValidToken_ReturnsNullAndGenerateNewToken() {
         $_SESSION[CSRFTokenValidator::TOKEN_KEY] = 'valid-token';
-        $validator = new \Zero\Form\Validator\CSRFTokenValidator();
+        $validator = new CSRFTokenValidator();
         $this->assertNull($validator->validate('valid-token'));
         $this->assertNotEquals('valid-token', $validator->getToken());
     }
@@ -28,7 +38,7 @@ class CSRFTokenValidatorTest extends TestCase
     public function validate_GivenInValidToken_ThrowsException() {
         $this->expectException(ValidationException::class);
         $_SESSION[CSRFTokenValidator::TOKEN_KEY] = 'valid-token';
-        $validator = new \Zero\Form\Validator\CSRFTokenValidator();
+        $validator = new CSRFTokenValidator();
         $this->assertNull($validator->validate('in-valid-token'));
         $this->assertNotEquals('valid-token', $validator->getToken());
     }
