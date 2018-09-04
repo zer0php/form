@@ -1,6 +1,8 @@
 {
     "name": "zer0php/form",
+    "description": "Basic Request Data Handler",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Mohos Tamás",
