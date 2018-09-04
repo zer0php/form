@@ -27,7 +27,6 @@ class EmptyValidatorTest extends TestCase {
      */
     public function validate_givenNotEmptyString_ReturnsNull() {
         $emptyValidator = new EmptyValidator('Name');
-        $emptyValidator->validate('Test name');
-        $this->expectNotToPerformAssertions();
+        $this->assertNull($emptyValidator->validate('Test name'));
     }
 }

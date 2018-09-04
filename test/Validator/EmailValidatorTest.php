@@ -26,7 +26,7 @@ class EmailValidatorTest extends TestCase {
      */
     public function validate_givenValidEmail_returnsNull() {
         $emptyValidator = new \Zero\Form\Validator\EmailValidator();
-        $emptyValidator->validate('test@test.test');
-        $this->expectNotToPerformAssertions();
+        $this->assertNull($emptyValidator->validate('test@test.test'));
+
     }
 }

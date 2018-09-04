@@ -6,6 +6,7 @@ use Zero\Form\Validator\EmailValidator;
 use Zero\Form\Validator\EmptyValidator;
 use Zero\Form\Validator\ValidationException;
 use PHPUnit\Framework\TestCase;
+use Zero\Form\Validator\ValidatorChain;
 
 /**
  * Class ValidatorChainTest
@@ -17,7 +18,7 @@ class ValidatorChainTest extends TestCase
      * @test
      */
     public function validate_givenOneValidatorAndItThrowsException_throwsException() {
-        $validator = new \Zero\Form\Validator\ValidatorChain();
+        $validator = new ValidatorChain();
         $emptyValidator = new EmptyValidator('Name');
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Name can not be empty');
@@ -30,7 +31,7 @@ class ValidatorChainTest extends TestCase
      * @test
      */
     public function validate_givenMultipleValidatorAndItThrowsException_throwsException() {
-        $validator = new \Zero\Form\Validator\ValidatorChain();
+        $validator = new ValidatorChain();
         $emptyValidator = new EmptyValidator('Name');
         $emailValidator = new EmailValidator();
         $this->expectException(ValidationException::class);
@@ -45,8 +46,7 @@ class ValidatorChainTest extends TestCase
      * @test
      */
     public function validate_givenZeroValidator_returnsNull() {
-        $validator = new \Zero\Form\Validator\ValidatorChain();
-        $validator->validate(null);
-        $this->expectNotToPerformAssertions();
+        $validator = new ValidatorChain();
+        $this->assertNull($validator->validate(null));
     }
 }
