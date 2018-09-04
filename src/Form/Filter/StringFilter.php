@@ -8,7 +8,8 @@ namespace Zero\Form\Filter;
  */
 class StringFilter implements FilterInterface
 {
-    public function filter($value) {
+    public function filter($value)
+    {
         return trim(filter_var($value, FILTER_SANITIZE_STRING));
     }
 }
