@@ -24,5 +24,8 @@
     "require-dev": {
         "phpunit/phpunit": "^7.3",
         "php-coveralls/php-coveralls": "^2.1"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --testdox --coverage-html coverage --coverage-clover clover.xml"
     }
 }
