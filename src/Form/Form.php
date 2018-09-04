@@ -2,6 +2,7 @@
 
 namespace Zero\Form;
 
+use InvalidArgumentException;
 use Zero\Form\Filter\FilterInterface;
 use Zero\Form\Validator\ValidationException;
 use Zero\Form\Validator\ValidatorInterface;
@@ -60,14 +61,15 @@ class Form
      * @param ValidatorInterface|null $validator
      * @return self
      */
-    public function input(string $name, FilterInterface $filter, ValidatorInterface $validator = null) {
-        if(in_array($name, $this->inputs)) {
-            throw new \InvalidArgumentException(sprintf('An input named "%s" has already been added!', $name));
+    public function input(string $name, FilterInterface $filter, ValidatorInterface $validator = null)
+    {
+        if (in_array($name, $this->inputs)) {
+            throw new InvalidArgumentException(sprintf('An input named "%s" has already been added!', $name));
         }
         $this->inputs[] = $name;
         $this->data[$name] = null;
         $this->filters[$name] = $filter;
-        if($validator) {
+        if ($validator) {
             $this->validators[$name] = $validator;
         }
         return $this;
@@ -88,11 +90,14 @@ class Form
         return $this;
     }
 
-    public function validate()
+    /**
+     * @return bool
+     */
+    public function isValid()
     {
         $data = $this->getData();
         $this->errors = [];
-        foreach($this->validators as $name => $validator) {
+        foreach ($this->validators as $name => $validator) {
             try {
                 $validator->validate($data[$name]);
             } catch (ValidationException $ex) {

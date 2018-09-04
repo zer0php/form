@@ -94,7 +94,7 @@ class FormTest extends TestCase
     /**
      * @test
      */
-    public function validate_GivenSomeInputsWithInvalidDataAndValidator_ReturnFalse()
+    public function isValid_GivenSomeInputsWithInvalidDataAndValidator_ReturnFalse()
     {
         $mockRequest = $this->createMock(ServerRequestInterface::class);
         $mockRequest
@@ -111,7 +111,7 @@ class FormTest extends TestCase
 
         $isValid = $this->form
             ->handle($mockRequest)
-            ->validate();
+            ->isValid();
         $this->assertFalse($isValid);
         $this->assertEquals([
             'name' => 'Name can not be empty',
