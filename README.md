@@ -7,6 +7,8 @@ use Zero\Form\Filter\EmailFilter;
 use Zero\Form\Validator\EmptyValidator;
 use Zero\Form\Validator\EmailValidator;
 
+...
+
 $form = new Form();
 $form
     ->input('name', new StringFilter(), new EmptyValidator('Name'))
