@@ -14,8 +14,8 @@ $form
     ->input('name', new StringFilter(), new EmptyValidator('Name'))
     ->input('email', new EmailFilter(), new EmailValidator());
     
-/* @var $request \Psr\Http\Message\ServerRequestInterface */
-if($form->handle($request)->isValid()) {
+/* @var $postRequest \Psr\Http\Message\ServerRequestInterface */
+if($form->handle($postRequest)->isValid()) {
     $data = $form->getData(); //['name' => 'Test name', 'email' => 'test@test.test']
 } else {
     $errors = $form->getErrors(); //['name' => 'Name can not be empty', 'email' => 'Wrong email format']
