@@ -21,4 +21,14 @@ class DateTimeValidatorTest extends TestCase {
         $this->expectExceptionMessage('Wrong datetime format');
         $validator->validate('wrong date format');
     }
+
+
+    /**
+     * @test
+     */
+    public function validate_givenValidEmail_returnsNull() {
+        $emptyValidator = new DateTimeValidator();
+        $this->assertNull($emptyValidator->validate('2018-09-10 13:08'));
+
+    }
 }
