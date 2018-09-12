@@ -118,4 +118,38 @@ class FormTest extends TestCase
             'email' => 'Wrong email format',
         ], $this->form->getErrors());
     }
+
+    /**
+     * @test
+     */
+    public function isValid_GivenSomeInputsWithValidAndInvalidDataAndValidator_ReturnFalse()
+    {
+        $mockRequest = $this->createMock(ServerRequestInterface::class);
+        $mockRequest
+            ->expects($this->once())
+            ->method('getParsedBody')
+            ->willReturn([
+                'name' => 'Valid Name',
+                'email' => 'testtest.test',
+            ]);
+
+        $this->form
+            ->input('name', new StringFilter(), new EmptyValidator('Name'))
+            ->input('email', new StringFilter(), new EmailValidator());
+
+        $isValid = $this->form
+            ->handle($mockRequest)
+            ->isValid();
+
+        $this->assertFalse($isValid);
+        $this->assertEquals([
+            'email' => 'Wrong email format',
+        ], $this->form->getErrors());
+
+        $this->assertEquals([
+            'name' => 'Valid Name',
+            'email' => null,
+        ], $this->form->getValidData());
+    }
+
 }

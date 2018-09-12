@@ -50,6 +50,14 @@ class Form
     /**
      * @return array
      */
+    public function getValidData()
+    {
+        return array_fill_keys(array_keys($this->errors), null) + $this->getData();
+    }
+
+    /**
+     * @return array
+     */
     public function getErrors()
     {
         return $this->errors;
@@ -106,6 +114,5 @@ class Form
         }
         return empty($this->errors);
     }
-
 
 }
