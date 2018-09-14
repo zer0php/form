@@ -3,6 +3,7 @@
 namespace Test\Filter;
 
 use PHPUnit\Framework\TestCase;
+use Zero\Form\Filter\StringFilter;
 
 /**
  * Class StringFilterTest
@@ -15,7 +16,7 @@ class StringFilterTest extends TestCase
      */
     public function filter_GivenValidData_ReturnsSameValue() {
         $value = 'Test string';
-        $filter = new \Zero\Form\Filter\StringFilter();
+        $filter = new StringFilter();
         $this->assertEquals('Test string', $filter->filter($value));
     }
 
@@ -24,7 +25,7 @@ class StringFilterTest extends TestCase
      */
     public function filter_GivenInValidData_ReturnsCleanedValue() {
         $value = 'Test string<br>';
-        $filter = new \Zero\Form\Filter\StringFilter();
+        $filter = new StringFilter();
         $this->assertEquals('Test string', $filter->filter($value));
     }
 
@@ -33,7 +34,16 @@ class StringFilterTest extends TestCase
      */
     public function filter_GivenOnlyWhitespacesData_ReturnsEmptyValue() {
         $value = '     ';
-        $filter = new \Zero\Form\Filter\StringFilter();
+        $filter = new StringFilter();
+        $this->assertEquals('', $filter->filter($value));
+    }
+
+    /**
+     * @test
+     */
+    public function filter_GivenArrayData_ReturnsEmptyValue() {
+        $value = [];
+        $filter = new StringFilter();
         $this->assertEquals('', $filter->filter($value));
     }
 }
